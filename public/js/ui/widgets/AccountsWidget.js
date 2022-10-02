@@ -3,6 +3,7 @@
  * отображения счетов в боковой колонке
  * */
 
+
 class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -14,7 +15,13 @@ class AccountsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
+    if ( !element ) {
+      throw new Error ('Передан пустой элемент');
+    }
+    this.element = element;
 
+    this.update();
+    this.registerEvents();
   }
 
   /**
@@ -25,7 +32,10 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-
+    const createAccountBtn = this.element.querySelector('.create-account');
+    createAccountBtn.addEventListener('click', () => {
+      App.getModal('createAccount').open();
+    })
   }
 
   /**
@@ -39,7 +49,17 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-
+    const currentUser = User.current();
+    if ( currentUser ) {
+      Account.list(currentUser, (err, response) => {
+        if (!err && response.success) {
+          this.clear();
+          this.renderItem( response.data );
+        } else if ( !response.success ) {
+          alert( response.error );
+        }
+      })
+    }
   }
 
   /**
@@ -48,7 +68,10 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-
+    const accounts = this.element.querySelectorAll('.account');
+    accounts.forEach(el => {
+      el.remove();
+    })
   }
 
   /**
@@ -59,7 +82,13 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
+    const activeAccount = this.element.querySelector('.active');
+    if ( activeAccount ) {
+      activeAccount.classList.remove('active');
+    }
 
+    element.classList.add('active');
+    App.showPage( 'transactions', { account_id: element.dataset.id })
   }
 
   /**
@@ -68,7 +97,20 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item){
-
+    const account = document.createElement('li');
+    account.classList = 'account';
+    account.dataset.id = item.id;
+    account.innerHTML = `
+      <a href="#">
+        <span>${item.name}</span> /
+        <span>${item.sum} ₽</span>
+      </a>
+    `;
+    account.onclick = ev => {
+      this.onSelectAccount( account );
+      ev.preventDefault();
+    };
+    return account;
   }
 
   /**
@@ -78,6 +120,8 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(data){
-
+    data.forEach(item => {
+      this.element.append( this.getAccountHTML( item ) );
+    })
   }
 }

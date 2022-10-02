@@ -60,5 +60,12 @@ class AsyncForm {
   submit() {
     this.onSubmit( this.getData() );
   }
-  
+
+  clear() {
+    [...this.element.elements].forEach(el => {
+      if (el.name) {
+        el.value = '';
+      }
+    });
+  }
 }

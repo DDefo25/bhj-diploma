@@ -52,9 +52,6 @@ class Sidebar {
             })
             break;
         }
-        
-
-
         ev.preventDefault();
       })
     })
