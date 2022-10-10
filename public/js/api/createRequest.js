@@ -27,10 +27,11 @@ const createRequest = (options = {}) => {
 
     switch (method) {
         case 'GET':
-            let urlAdd = url + '?';
+            const dataArr = [];
             for( const key in data ) {
-                urlAdd += `${key}=${data[key]}&`
+                dataArr.push(`${key}=${data[key]}`);
             }
+            const urlAdd = url + '?' + dataArr.join('&');
             xhr.open( method, data ? urlAdd : url);
             xhr.send();
             break;

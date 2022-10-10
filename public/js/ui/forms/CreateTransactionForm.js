@@ -19,19 +19,23 @@ class CreateTransactionForm extends AsyncForm {
    * */
   renderAccountsList() {
     const currentUser = User.current();
-    Account.list(currentUser, (err, response) => {
-      if ( !err && response.success ) {
-        const accountsSelectEl = this.element.querySelector('.accounts-select');
-        response.data.forEach(item => {
-          const account = document.createElement('option');
-          account.value = item.id;
-          account.textContent = item.name;
-          accountsSelectEl.append(account);
-        })
-      } else if ( !response.success ) {
-        alert(response.error);
-      }
-    })
+    if (currentUser) {
+      Account.list(currentUser, (err, response) => {
+        if ( !err && response.success ) {
+          const accountsSelectEl = this.element.querySelector('.accounts-select');
+          accountsSelectEl.innerHTML = '';
+          response.data.forEach(item => {
+            const account = document.createElement('option');
+            account.value = item.id;
+            account.textContent = item.name;
+            accountsSelectEl.append(account);
+          })
+        } else if ( !response.success ) {
+          console.log(currentUser, response)
+          alert(response.error);
+        }
+      })
+    }
   }
 
   /**
@@ -41,14 +45,19 @@ class CreateTransactionForm extends AsyncForm {
    * в котором находится форма
    * */
   onSubmit(data) {
+    const modalName = data.type === 'expense' ? 'newExpense' : data.type === 'income' ? 'newIncome' : null;
+
+    if (!modalName) {
+      throw new Error('Тип транзакции не определен');
+    }
+
     Transaction.create(data, (err, response) => {
       if (!err, response.success) {
-        this.clear();
-        App.getModal('newIncome').close();
-        App.getModal('newExpense').close();
         App.update();
+        this.clear();
+        App.getModal( modalName ).close();
       } else if ( !response.success ) {
-        alert(response.error);
+        App.getModal( modalName ).throwError( response.error );
       }
     })
   }

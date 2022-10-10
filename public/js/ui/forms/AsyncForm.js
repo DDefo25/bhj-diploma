@@ -50,7 +50,6 @@ class AsyncForm {
   }
 
   onSubmit(options){
-
   }
 
   /**
@@ -63,7 +62,7 @@ class AsyncForm {
 
   clear() {
     [...this.element.elements].forEach(el => {
-      if (el.name) {
+      if (el.classList.contains('form-control')) {
         el.value = '';
       }
     });

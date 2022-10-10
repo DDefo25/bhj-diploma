@@ -41,6 +41,8 @@ class Modal {
    * */
   onClose() {
     this.close();
+
+    this.clearError();
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
@@ -55,4 +57,25 @@ class Modal {
   close(){
     this.element.style.display = '';
   }
+
+  throwError( error ) {
+    this.clearError();
+
+    const errorEl = createElement({
+      tag: 'div',
+      _class: 'error__title',
+      innerHTML: `<span>${error}</span>`,
+    })
+
+    this.element.querySelector('.modal-body').append(errorEl);
+  }
+
+  clearError() {
+    const errorEl = this.element.querySelector('.error__title');
+    
+    if (errorEl) {
+      errorEl.remove();
+    }
+  }
+
 }

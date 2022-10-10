@@ -5,36 +5,6 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1"
-    },
-    {
-      "name": "1",
-      "email": "max@demo.ru",
-      "password": "1234",
-      "id": "25jw57uol8ob7r50"
-    },
-    {
-      "name": "1",
-      "email": "max@demo",
-      "password": "1234",
-      "id": "25jw595gl8obcepl"
-    },
-    {
-      "name": "12",
-      "email": "max@demo.r",
-      "password": "1234",
-      "id": "25jw5554l8obdl3f"
-    },
-    {
-      "name": "123",
-      "email": "max@demo.t",
-      "password": "1234",
-      "id": "25jw51vwl8obfr9j"
-    },
-    {
-      "name": "1231",
-      "email": "max@demo.rp",
-      "password": "1234",
-      "id": "25jw59y8l8obhntm"
     }
   ],
   "accounts": [
@@ -54,44 +24,12 @@
       "id": "3"
     },
     {
-      "name": "Банк2",
+      "name": "Кубышка",
       "user_id": "1",
-      "id": "25jw5ep8l8n7muhb"
-    },
-    {
-      "name": "111",
-      "user_id": "1",
-      "id": "25jw57vgl8r5uq5j"
+      "id": "25jw5hb8l8uivarv"
     }
   ],
   "transactions": [
-    {
-      "account_id": "1",
-      "created_at": "2019-09-15 10:24:02",
-      "id": "1",
-      "name": "Кредит",
-      "sum": 5000,
-      "type": "expense",
-      "user_id": "1"
-    },
-    {
-      "account_id": "1",
-      "created_at": "2019-09-17 15:53:02",
-      "id": "2",
-      "name": "Баланс на дебетовке",
-      "sum": 3200,
-      "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "1",
-      "created_at": "2019-09-19 20:12:02",
-      "id": "3",
-      "name": "Копилка",
-      "sum": 1500,
-      "type": "income",
-      "user_id": "1"
-    },
     {
       "account_id": "2",
       "created_at": "2019-09-26 16:23:02",
@@ -199,6 +137,42 @@
       "sum": 300000,
       "type": "expense",
       "user_id": "1"
+    },
+    {
+      "id": "25jw5n54l8uiwe1k",
+      "type": "income",
+      "name": "Сходил к бабушке",
+      "sum": 1000,
+      "account_id": "25jw5hb8l8uivarv",
+      "user_id": "1",
+      "created_at": "2022-10-04T18:17:14.263Z"
+    },
+    {
+      "id": "25jw5nccl8uiyxgn",
+      "type": "expense",
+      "name": "Сходил к девушке",
+      "sum": 1500,
+      "account_id": "25jw5hb8l8uivarv",
+      "user_id": "1",
+      "created_at": "2022-10-04T18:19:12.742Z"
+    },
+    {
+      "id": "25jw59i8l8ujvd5n",
+      "type": "income",
+      "name": "Разбил копилку",
+      "sum": 500,
+      "account_id": "25jw5hb8l8uivarv",
+      "user_id": "1",
+      "created_at": "2022-10-04T18:44:26.074Z"
+    },
+    {
+      "id": "25jw57u8l8ujvrts",
+      "type": "income",
+      "name": "Нашел на улице",
+      "sum": 100,
+      "account_id": "25jw5hb8l8uivarv",
+      "user_id": "1",
+      "created_at": "2022-10-04T18:44:45.087Z"
     }
   ]
 }
